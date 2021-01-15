@@ -53,4 +53,21 @@ let menuButton = masterNavBar.buttons["Menu"]
         XCTAssert(app.navigationBars["Menu"].exists)
                 
     }
+    
+    func test_calculatorEntry() {
+
+        app.buttons["2"].tap()
+        app.staticTexts["3"].tap()
+        
+        XCTAssertEqual(
+        
+        app
+            .staticTexts
+            .matching(identifier: "output")
+            .firstMatch
+            .label,
+            "24"
+        
+        )
+    }
 }
