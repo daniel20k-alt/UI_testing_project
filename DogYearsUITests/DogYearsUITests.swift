@@ -44,11 +44,21 @@ class DogYearsUITests: XCTestCase {
 
 
     func test_navigationBackToMenu() throws {
-
-let masterNavBar = app.navigationBars["Master"]
-let menuButton = masterNavBar.buttons["Menu"]
-    menuButton.tap()
-         
+        
+        let isiPad = UIDevice.current.userInterfaceIdiom == .pad
+        let isPortrait = XCUIDevice.shared.orientation.isPortrait
+        
+        let masterNavBar = app.navigationBars["Master"]
+        
+        switch (isiPad, isPortrait) {
+        case (true, true):
+            masterNavBar.buttons["Master"].tap()
+        case (true, false):
+            break
+        case (false, _):
+            masterNavBar.buttons["Menu"].tap()
+        }
+        
         XCTAssertFalse(masterNavBar.exists)
         XCTAssert(app.navigationBars["Menu"].exists)
                 
